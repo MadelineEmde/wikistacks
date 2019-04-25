@@ -13,9 +13,9 @@ router.post("/", async (req, res, next) => {
 
   const page = new Page({
     title,
-    content,
+    content
   });
-  console.log(page)
+  console.log(page);
 
   try {
     await page.save();
@@ -28,6 +28,19 @@ router.post("/", async (req, res, next) => {
 
 router.get("/add", (req, res, next) => {
   res.send(addPage());
+});
+
+router.get("/:slug", async (req, res, next) => {
+  try {
+    const page = await Page.findOne({
+      where: {
+        slug: req.params.slug
+      }
+    });
+    res.json(page);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
