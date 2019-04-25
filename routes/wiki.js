@@ -7,19 +7,15 @@ router.get("/", (req, res, next) => {
   res.send(layout("test here"));
 });
 
-function titleToSlug(str) {
-  let slug = str.replace(/\s+/g, "_").replace(/\W/g, "");
-  console.log(slug);
-}
-titleToSlug("what the fuck is regExp");
 router.post("/", async (req, res, next) => {
   const title = req.body.title;
   const content = req.body.content;
 
   const page = new Page({
     title,
-    content
+    content,
   });
+  console.log(page)
 
   try {
     await page.save();
